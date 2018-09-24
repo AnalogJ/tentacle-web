@@ -141,8 +141,8 @@
                             <li><span class="checkmark bg--primary-1"> </span><span>Thycotic Secret Server Integration</span></li>
                             <li><span class="checkmark bg--primary-1"> </span><span>Terraform v0.10.x+</span></li>
                         </ul>
-                        <a class="btn btn--primary" href="#"> <span class="btn__text">
-                            Purchase</span> </a>
+                        <button id="customButton" class="btn btn--primary"> <span class="btn__text">
+                            Purchase</span> </button>
                     </div>
                 </div>
             </div>
@@ -200,6 +200,36 @@
 <script src="/js/parallax.js"></script>
 <script src="/js/smooth-scroll.min.js"></script>
 <script src="/js/scripts.js"></script>
+
+
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+<script>
+    var handler = StripeCheckout.configure({
+        key: 'pk_test_NeUBLQdqzo9mTUJmBNdpvJJc',
+        image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+        locale: 'auto',
+        token: function(token) {
+            // You can access the token ID with `token.id`.
+            // Get the token ID to your server-side code for use.
+        }
+    });
+
+    document.getElementById('customButton').addEventListener('click', function(e) {
+        // Open Checkout with further options:
+        handler.open({
+            name: 'Tentacle Plugins',
+            description: '2 widgets',
+            amount: 2000
+        });
+        e.preventDefault();
+    });
+
+    // Close Checkout on page navigation:
+    window.addEventListener('popstate', function() {
+        handler.close();
+    });
+</script>
 
 </body>
 
